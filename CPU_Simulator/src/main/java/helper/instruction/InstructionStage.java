@@ -8,7 +8,8 @@ public enum InstructionStage {
     DECODE("Instruction Decoder"),
     EXECUTE("Execute"),
     MEMORY("Memory"),
-    WRITE_BACK("Write Back");
+    WRITE_BACK("Write Back"),
+    FINISHED("Finished");
 
     private final String stageName;
 
