@@ -15,4 +15,8 @@ public class Instruction {
         this.instruction = instruction;
         this.instructionStage = InstructionStage.FETCH;
     }
+
+    public static void resetGlobalId(){
+        globalId = 0;
+    }
 }
