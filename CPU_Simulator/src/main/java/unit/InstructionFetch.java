@@ -59,7 +59,7 @@ public class InstructionFetch implements Unit {
         boolean zero = ((ExMem) registers.get("ExMem")).isZero();
         pcSource = branch && zero;
         jumpAddress = ((IfId) registers.get("IfId")).getPcIncrement().substring(0, 2)
-                + ((IfId) registers.get("IfId")).getInstruction().substring(3);
+                + ((IfId) registers.get("IfId")).getInstruction().getInstruction().substring(3);
         jump = ((Control) units.get("Control")).isJump();
     }
 
