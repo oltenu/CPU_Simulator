@@ -49,7 +49,7 @@ public class Operation {
         return String.format("%016d", Integer.valueOf(Integer.toBinaryString(AND)));
     }
 
-    public static String setOnLessThanImmediate(String readData1, String operand) {
+    public static String setOnLessThan(String readData1, String operand) {
         int firstNumber = Integer.parseInt(readData1, 2);
         int secondNumber = Integer.parseInt(operand, 2);
 

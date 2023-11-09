@@ -92,7 +92,7 @@ public class Execute implements Unit {
             case "011" -> aluResult = shiftRightLogic(readData1);
             case "100" -> aluResult = AND(readData1, operand);
             case "101" -> aluResult = OR(readData1, operand);
-            case "110" -> aluResult = setOnLessThanImmediate(readData1, operand);
+            case "110" -> aluResult = setOnLessThan(readData1, operand);
             case "111" -> aluResult = shiftRightArithmetic(readData1);
         }
 
