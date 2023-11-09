@@ -95,7 +95,7 @@ public class OperationTest {
         String expected = "0000000000000001";
 
         //when
-        String actual = Operation.setOnLessThanImmediate("0000000000000101", "0000000000000111");
+        String actual = Operation.setOnLessThan("0000000000000101", "0000000000000111");
 
         //then
         assertEquals(expected, actual);

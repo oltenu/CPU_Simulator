@@ -378,4 +378,87 @@ public class ExecuteTest {
         //then
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void testBranchAndEqual(){
+        //given
+
+        //when
+        when(idEx.getInstruction()).thenReturn(new Instruction(ZERO_16));
+        when(idEx.getReadData1()).thenReturn("0000000000000011");
+        when(idEx.getReadData2()).thenReturn(ZERO_16);
+        when(idEx.getExtendedImmediate()).thenReturn("0000000000000011");
+        when(idEx.getFunc()).thenReturn(ZERO_3);
+        when(idEx.isSa()).thenReturn(false);
+        when(idEx.isRegisterDestination()).thenReturn(false);
+        when(idEx.isAluSource()).thenReturn(true);
+        when(idEx.getAluOperation()).thenReturn("001");
+        when(idEx.getRd()).thenReturn(ZERO_3);
+        when(idEx.getRt()).thenReturn(ZERO_3);
+        when(idEx.getPcIncrement()).thenReturn(ZERO_16);
+
+        execute.update();
+        execute.run();
+
+        boolean result = execute.isZero();
+
+        //then
+        assertTrue(result);
+    }
+
+    @Test
+    public void testORI(){
+        //given
+        String expected = "0000000001011110";
+
+        //when
+        when(idEx.getInstruction()).thenReturn(new Instruction(ZERO_16));
+        when(idEx.getReadData1()).thenReturn("0000000000010010");
+        when(idEx.getReadData2()).thenReturn(ZERO_16);
+        when(idEx.getExtendedImmediate()).thenReturn("0000000001001110");
+        when(idEx.getFunc()).thenReturn(ZERO_3);
+        when(idEx.isSa()).thenReturn(false);
+        when(idEx.isRegisterDestination()).thenReturn(false);
+        when(idEx.isAluSource()).thenReturn(true);
+        when(idEx.getAluOperation()).thenReturn("101");
+        when(idEx.getRd()).thenReturn(ZERO_3);
+        when(idEx.getRt()).thenReturn(ZERO_3);
+        when(idEx.getPcIncrement()).thenReturn(ZERO_16);
+
+        execute.update();
+        execute.run();
+
+        String actual = execute.getAluResult();
+
+        //then
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testSetOnLessThanImmediate(){
+        //given
+        String expected = "0000000000000000";
+
+        //when
+        when(idEx.getInstruction()).thenReturn(new Instruction(ZERO_16));
+        when(idEx.getReadData1()).thenReturn("0000000000000001");
+        when(idEx.getReadData2()).thenReturn(ZERO_16);
+        when(idEx.getExtendedImmediate()).thenReturn("0000000000000000");
+        when(idEx.getFunc()).thenReturn(ZERO_3);
+        when(idEx.isSa()).thenReturn(false);
+        when(idEx.isRegisterDestination()).thenReturn(false);
+        when(idEx.isAluSource()).thenReturn(true);
+        when(idEx.getAluOperation()).thenReturn("110");
+        when(idEx.getRd()).thenReturn(ZERO_3);
+        when(idEx.getRt()).thenReturn(ZERO_3);
+        when(idEx.getPcIncrement()).thenReturn(ZERO_16);
+
+        execute.update();
+        execute.run();
+
+        String actual = execute.getAluResult();
+
+        //then
+        assertEquals(expected, actual);
+    }
 }
