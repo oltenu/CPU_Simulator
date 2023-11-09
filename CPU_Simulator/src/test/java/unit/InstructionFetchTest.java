@@ -84,7 +84,7 @@ public class InstructionFetchTest {
         when(exMem.getBranchAddress()).thenReturn("0000000000000101");
         when(exMem.isBranch()).thenReturn(true);
         when(exMem.isZero()).thenReturn(true);
-        when(ifId.getInstruction()).thenReturn("0000000000000000");
+        when(ifId.getInstruction()).thenReturn(new Instruction("0000000000000000"));
         when(ifId.getPcIncrement()).thenReturn("0000000000000000");
         when(control.isJump()).thenReturn(false);
         instructionFetch.update();
@@ -105,7 +105,7 @@ public class InstructionFetchTest {
         when(exMem.getBranchAddress()).thenReturn("0000000000000101");
         when(exMem.isBranch()).thenReturn(false);
         when(exMem.isZero()).thenReturn(false);
-        when(ifId.getInstruction()).thenReturn("0000000000000110");
+        when(ifId.getInstruction()).thenReturn(new Instruction("0000000000000110"));
         when(ifId.getPcIncrement()).thenReturn("0000000000000000");
         when(control.isJump()).thenReturn(true);
         instructionFetch.update();
@@ -126,7 +126,7 @@ public class InstructionFetchTest {
         when(exMem.getBranchAddress()).thenReturn("0000000000000101");
         when(exMem.isBranch()).thenReturn(true);
         when(exMem.isZero()).thenReturn(true);
-        when(ifId.getInstruction()).thenReturn("0000000000000110");
+        when(ifId.getInstruction()).thenReturn(new Instruction("0000000000000110"));
         when(ifId.getPcIncrement()).thenReturn("0000000000000000");
         when(control.isJump()).thenReturn(true);
         instructionFetch.update();
