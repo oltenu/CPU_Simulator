@@ -43,7 +43,7 @@ public class InstructionDecoder implements Unit {
     @Override
     public void run() {
         if (extendOperation) {
-            extendedImmediate = instruction.getInstruction().charAt(9)
+            extendedImmediate = Character.toString(instruction.getInstruction().charAt(9))
                     + instruction.getInstruction().charAt(9)
                     + instruction.getInstruction().charAt(9)
                     + instruction.getInstruction().charAt(9)
