@@ -7,6 +7,8 @@ import register.*;
 
 import java.util.*;
 
+import static helper.instruction.Instruction.ZERO_16;
+
 @Data
 public class InstructionFetch implements Unit {
     private Map<String, Unit> units;
@@ -23,10 +25,10 @@ public class InstructionFetch implements Unit {
     public InstructionFetch() {
         units = new HashMap<>();
         instructions = new ArrayList<>();
-        instruction = new Instruction("0000000000000000");
-        pcIncrement = "0000000000000000";
-        branchAddress = "0000000000000000";
-        jumpAddress = "0000000000000000";
+        instruction = new Instruction(ZERO_16);
+        pcIncrement = ZERO_16;
+        branchAddress = ZERO_16;
+        jumpAddress = ZERO_16;
         counter = 0;
     }
 

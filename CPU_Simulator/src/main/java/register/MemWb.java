@@ -7,6 +7,9 @@ import unit.Unit;
 import java.util.HashMap;
 import java.util.Map;
 
+import static helper.instruction.Instruction.ZERO_16;
+import static helper.instruction.Instruction.ZERO_3;
+
 @Data
 public class MemWb implements Register{
     private Map<String, Unit> units;
@@ -21,10 +24,10 @@ public class MemWb implements Register{
     public MemWb(){
         units = new HashMap<>();
         registers = new HashMap<>();
-        instruction = new Instruction("0000000000000000");
-        aluResult = "0000000000000000";
-        memoryData = "0000000000000000";
-        rd = "0000000000000000";
+        instruction = new Instruction(ZERO_16);
+        aluResult = ZERO_16;
+        memoryData = ZERO_16;
+        rd = ZERO_3;
     }
 
     @Override

@@ -6,6 +6,9 @@ import register.*;
 
 import java.util.*;
 
+import static helper.instruction.Instruction.ZERO_16;
+import static helper.instruction.Instruction.ZERO_3;
+
 @Data
 public class InstructionDecoder implements Unit {
     private Map<String, Unit> units;
@@ -28,16 +31,16 @@ public class InstructionDecoder implements Unit {
         units = new HashMap<>();
         registers = new HashMap<>();
         dataRegisters = new String[8];
-        Arrays.fill(dataRegisters, "0000000000000000");
-        writeAddress = "0000000000000000";
-        writeData = "0000000000000000";
-        instruction = new Instruction("0000000000000000");
-        readData1 = "0000000000000000";
-        readData2 = "0000000000000000";
-        extendedImmediate = "0000000000000000";
-        func = "0000000000000000";
-        rd = "0000000000000000";
-        rt = "0000000000000000";
+        Arrays.fill(dataRegisters, ZERO_16);
+        writeAddress = ZERO_3;
+        writeData = ZERO_16;
+        instruction = new Instruction(ZERO_16);
+        readData1 = ZERO_16;
+        readData2 = ZERO_16;
+        extendedImmediate = ZERO_16;
+        func = ZERO_3;
+        rd = ZERO_3;
+        rt = ZERO_3;
     }
 
     @Override

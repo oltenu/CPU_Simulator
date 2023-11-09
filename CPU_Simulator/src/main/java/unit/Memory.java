@@ -7,6 +7,8 @@ import register.Register;
 import java.util.HashMap;
 import java.util.Map;
 
+import static helper.instruction.Instruction.ZERO_16;
+
 @Data
 public class Memory implements Unit {
     private Map<String, Unit> units;
@@ -18,14 +20,14 @@ public class Memory implements Unit {
     private String memoryData;
     private boolean memoryWrite;
 
-    public Memory(){
+    public Memory() {
         units = new HashMap<>();
         registers = new HashMap<>();
-        instruction = new Instruction("0000000000000000");
-        aluResultIn = "0000000000000000";
-        readData2 = "0000000000000000";
-        aluResultOut = "0000000000000000";
-        memoryData = "0000000000000000";
+        instruction = new Instruction(ZERO_16);
+        aluResultIn = ZERO_16;
+        readData2 = ZERO_16;
+        aluResultOut = ZERO_16;
+        memoryData = ZERO_16;
     }
 
     @Override

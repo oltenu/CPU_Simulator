@@ -7,6 +7,9 @@ import unit.Unit;
 import java.util.HashMap;
 import java.util.Map;
 
+import static helper.instruction.Instruction.ZERO_16;
+import static helper.instruction.Instruction.ZERO_3;
+
 @Data
 public class IdEx implements Register{
     private Map<String, Unit> units;
@@ -31,15 +34,15 @@ public class IdEx implements Register{
     public IdEx(){
         units = new HashMap<>();
         registers = new HashMap<>();
-        instruction = new Instruction("0000000000000000");
-        readData1 = "0000000000000000";
-        readData2 = "0000000000000000";
-        extendedImmediate = "0000000000000000";
-        func = "0000000000000000";
-        rd = "0000000000000000";
-        rt = "0000000000000000";
-        pcIncrement = "0000000000000000";
-        aluOperation = "0000000000000000";
+        instruction = new Instruction(ZERO_16);
+        readData1 = ZERO_16;
+        readData2 = ZERO_16;
+        extendedImmediate = ZERO_16;
+        func = ZERO_3;
+        rd = ZERO_3;
+        rt = ZERO_3;
+        pcIncrement = ZERO_16;
+        aluOperation = ZERO_3;
     }
 
     @Override

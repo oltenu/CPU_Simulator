@@ -10,5 +10,6 @@ public interface Unit {
     void update();
 
     void initializeUnits(Map<String, Unit> units);
+
     void initializeRegisters(Map<String, Register> registers);
 }

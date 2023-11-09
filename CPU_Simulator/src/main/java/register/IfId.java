@@ -7,6 +7,8 @@ import unit.Unit;
 import java.util.HashMap;
 import java.util.Map;
 
+import static helper.instruction.Instruction.ZERO_16;
+
 @Data
 public class IfId implements Register{
     private Map<String, Unit> units;
@@ -17,8 +19,8 @@ public class IfId implements Register{
     public IfId(){
         units = new HashMap<>();
         registers = new HashMap<>();
-        instruction = new Instruction("0000000000000000");
-        pcIncrement = "0000000000000000";
+        instruction = new Instruction(ZERO_16);
+        pcIncrement = ZERO_16;
     }
 
     @Override

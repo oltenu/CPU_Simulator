@@ -7,6 +7,8 @@ import register.Register;
 import java.util.HashMap;
 import java.util.Map;
 
+import static helper.instruction.Instruction.ZERO_16;
+
 @Data
 public class WriteBack implements Unit {
     private Map<String, Unit> units;
@@ -17,13 +19,13 @@ public class WriteBack implements Unit {
     private String result;
     private boolean memoryToRegister;
 
-    public WriteBack(){
+    public WriteBack() {
         units = new HashMap<>();
         registers = new HashMap<>();
-        instruction = new Instruction("0000000000000000");
-        aluRes = "0000000000000000";
-        memoryData = "0000000000000000";
-        result = "0000000000000000";
+        instruction = new Instruction(ZERO_16);
+        aluRes = ZERO_16;
+        memoryData = ZERO_16;
+        result = ZERO_16;
     }
 
     @Override
