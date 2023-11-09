@@ -1,15 +1,12 @@
 package unit;
 
 import helper.instruction.Instruction;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import register.IfId;
-import register.Register;
+import register.*;
 
 import java.util.*;
 
@@ -25,7 +22,7 @@ public class ControlTest {
     private Control control;
 
     @BeforeAll
-    public static void setUp(){
+    public static void setUp() {
         units = new HashMap<>();
         registers = new HashMap<>();
         ifId = Mockito.mock(IfId.class);
@@ -33,7 +30,7 @@ public class ControlTest {
     }
 
     @BeforeEach
-    public void beforeEach(){
+    public void beforeEach() {
         control = new Control();
 
         control.initializeUnits(units);
@@ -41,7 +38,7 @@ public class ControlTest {
     }
 
     @Test
-    public void testR(){
+    public void testR() {
         //given
 
         //when
@@ -64,7 +61,7 @@ public class ControlTest {
     }
 
     @Test
-    public void testAddi(){
+    public void testAddi() {
         //given
 
         //when
@@ -87,7 +84,7 @@ public class ControlTest {
     }
 
     @Test
-    public void testLw(){
+    public void testLw() {
         //given
 
         //when
@@ -110,7 +107,7 @@ public class ControlTest {
     }
 
     @Test
-    public void testSw(){
+    public void testSw() {
         //given
 
         //when
@@ -133,7 +130,7 @@ public class ControlTest {
     }
 
     @Test
-    public void testBeq(){
+    public void testBeq() {
         //given
 
         //when
@@ -156,7 +153,7 @@ public class ControlTest {
     }
 
     @Test
-    public void testOri(){
+    public void testOri() {
         //given
 
         //when
@@ -179,7 +176,7 @@ public class ControlTest {
     }
 
     @Test
-    public void testSlti(){
+    public void testSlti() {
         //given
 
         //when
@@ -202,7 +199,7 @@ public class ControlTest {
     }
 
     @Test
-    public void testJ(){
+    public void testJ() {
         //given
 
         //when
