@@ -1,6 +1,5 @@
 package unit;
 
-import helper.Operation;
 import helper.instruction.Instruction;
 import helper.instruction.InstructionStage;
 import lombok.Data;
@@ -10,6 +9,7 @@ import register.Register;
 import java.util.HashMap;
 import java.util.Map;
 
+import static helper.Operation.*;
 import static helper.instruction.Instruction.ZERO_16;
 import static helper.instruction.Instruction.ZERO_3;
 
@@ -34,7 +34,7 @@ public class Execute implements Unit {
     private boolean registerDestination;
     private boolean zero;
 
-    public Execute(){
+    public Execute() {
         units = new HashMap<>();
         registers = new HashMap<>();
         instruction = new Instruction(ZERO_16);
@@ -53,10 +53,10 @@ public class Execute implements Unit {
 
     @Override
     public void run() {
-        String operand = ZERO_3;
+        String operand;
         String aluControl = ZERO_3;
 
-        if(registerDestination)
+        if (registerDestination)
             rWa = rd;
         else
             rWa = rt;
@@ -86,17 +86,18 @@ public class Execute implements Unit {
         };
 
         switch (aluControl) {
-            case "000" -> aluResult = Operation.addBinary(readData1, operand);
-            case "001" -> aluResult = Operation.subtractBinary(readData1, operand);
-            case "010" -> aluResult = Operation.shiftLeftLogic(readData1);
-            case "011" -> aluResult = Operation.shiftRightLogic(readData1);
-            case "100" -> aluResult = Operation.AND(readData1, operand);
-            case "101" -> aluResult = Operation.OR(readData1, operand);
-            case "110" -> aluResult = Operation.setOnLessThanImmediate(readData1, operand);
-            case "111" -> aluResult = Operation.shiftRightArithmetic(readData1);
+            case "000" -> aluResult = addBinary(readData1, operand);
+            case "001" -> aluResult = subtractBinary(readData1, operand);
+            case "010" -> aluResult = shiftLeftLogic(readData1);
+            case "011" -> aluResult = shiftRightLogic(readData1);
+            case "100" -> aluResult = AND(readData1, operand);
+            case "101" -> aluResult = OR(readData1, operand);
+            case "110" -> aluResult = setOnLessThanImmediate(readData1, operand);
+            case "111" -> aluResult = shiftRightArithmetic(readData1);
         }
 
-
+        zero = aluResult.equals(ZERO_16);
+        branchAddress = addBinary(extendedImmediate, pcIncrement);
     }
 
     @Override
