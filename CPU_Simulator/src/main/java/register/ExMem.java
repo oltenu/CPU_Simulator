@@ -2,6 +2,7 @@ package register;
 
 import helper.instruction.Instruction;
 import lombok.Data;
+import unit.Execute;
 import unit.Unit;
 
 import java.util.HashMap;
@@ -37,6 +38,15 @@ public class ExMem implements Register{
 
     @Override
     public void update() {
-
+        instruction = ((IdEx) registers.get("IdEx")).getInstruction();
+        branchAddress = ((Execute) units.get("Execute")).getBranchAddress();
+        aluResult = ((Execute) units.get("Execute")).getAluResult();
+        rd = ((Execute) units.get("Execute")).getRWa();
+        readData2 = ((IdEx) registers.get("IdEx")).getReadData2();
+        branch = ((IdEx) registers.get("IdEx")).isBranch();
+        memoryWrite = ((IdEx) registers.get("IdEx")).isMemoryWrite();
+        memoryToRegister = ((IdEx) registers.get("IdEx")).isMemoryToRegister();
+        registerWrite = ((IdEx) registers.get("IdEx")).isRegisterWrite();
+        zero = ((Execute) units.get("Execute")).isZero();
     }
 }

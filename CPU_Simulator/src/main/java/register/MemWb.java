@@ -2,6 +2,7 @@ package register;
 
 import helper.instruction.Instruction;
 import lombok.Data;
+import unit.Memory;
 import unit.Unit;
 
 import java.util.HashMap;
@@ -32,6 +33,11 @@ public class MemWb implements Register{
 
     @Override
     public void update() {
-
+        instruction = ((ExMem) registers.get("ExMem")).getInstruction();
+        aluResult = ((Memory) units.get("Memory")).getAluResultOut();
+        memoryData = ((Memory) units.get("Memory")).getMemoryData();
+        rd = ((ExMem) registers.get("ExMem")).getRd();
+        memoryToRegister = ((ExMem) registers.get("ExMem")).isMemoryToRegister();
+        registerWrite = ((ExMem) registers.get("ExMem")).isRegisterWrite();
     }
 }

@@ -2,6 +2,7 @@ package register;
 
 import helper.instruction.Instruction;
 import lombok.Data;
+import unit.InstructionFetch;
 import unit.Unit;
 
 import java.util.HashMap;
@@ -25,6 +26,7 @@ public class IfId implements Register{
 
     @Override
     public void update() {
-
+        instruction = ((InstructionFetch) units.get("InstructionFetch")).getInstruction();
+        pcIncrement = ((InstructionFetch) units.get("InstructionFetch")).getPcIncrement();
     }
 }

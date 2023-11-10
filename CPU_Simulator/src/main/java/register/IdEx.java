@@ -2,6 +2,8 @@ package register;
 
 import helper.instruction.Instruction;
 import lombok.Data;
+import unit.Control;
+import unit.InstructionDecoder;
 import unit.Unit;
 
 import java.util.HashMap;
@@ -47,6 +49,21 @@ public class IdEx implements Register{
 
     @Override
     public void update() {
-
+        instruction = ((IfId) registers.get("IfId")).getInstruction();
+        readData1 = ((InstructionDecoder) units.get("InstructionDecoder")).getReadData1();
+        readData2 = ((InstructionDecoder) units.get("InstructionDecoder")).getReadData2();
+        extendedImmediate = ((InstructionDecoder) units.get("InstructionDecoder")).getExtendedImmediate();
+        func = ((InstructionDecoder) units.get("InstructionDecoder")).getFunc();
+        rd = ((InstructionDecoder) units.get("InstructionDecoder")).getRd();
+        rt = ((InstructionDecoder) units.get("InstructionDecoder")).getRt();
+        pcIncrement = ((IfId) registers.get("IfId")).getPcIncrement();
+        aluOperation = ((Control) units.get("Control")).getAluOperation();
+        registerDestination = ((Control) units.get("Control")).isRegisterDestination();
+        aluSource = ((Control) units.get("Control")).isAluSource();
+        branch = ((Control) units.get("Control")).isBranch();
+        memoryWrite = ((Control) units.get("Control")).isMemoryWrite();
+        memoryToRegister = ((Control) units.get("Control")).isMemoryToRegister();
+        registerWrite = ((Control) units.get("Control")).isRegisterWrite();
+        sa = ((InstructionDecoder) units.get("InstructionDecoder")).isSa();
     }
 }
