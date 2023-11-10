@@ -1,7 +1,9 @@
 package unit;
 
 import helper.instruction.Instruction;
+import helper.instruction.InstructionStage;
 import lombok.Data;
+import register.MemWb;
 import register.Register;
 
 import java.util.HashMap;
@@ -30,21 +32,28 @@ public class WriteBack implements Unit {
 
     @Override
     public void run() {
-
+        if(memoryToRegister)
+            result = memoryData;
+        else
+            result = aluRes;
     }
 
     @Override
     public void update() {
-
+        instruction = ((MemWb) registers.get("MemWb")).getInstruction();
+        instruction.setInstructionStage(InstructionStage.WRITE_BACK);
+        aluRes = ((MemWb) registers.get("MemWb")).getAluResult();
+        memoryData = ((MemWb) registers.get("MemWb")).getMemoryData();
+        memoryToRegister = ((MemWb) registers.get("MemWb")).isMemoryToRegister();
     }
 
     @Override
     public void initializeUnits(Map<String, Unit> units) {
-
+        this.units = units;
     }
 
     @Override
     public void initializeRegisters(Map<String, Register> registers) {
-
+        this.registers = registers;
     }
 }
