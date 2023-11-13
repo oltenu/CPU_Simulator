@@ -1,12 +1,11 @@
-package unit;
+package component;
 
-import register.Register;
+import component.register.Register;
+import component.unit.Unit;
 
 import java.util.Map;
 
-public interface Unit {
-    void run();
-
+public interface Component {
     void update();
 
     void initializeUnits(Map<String, Unit> units);

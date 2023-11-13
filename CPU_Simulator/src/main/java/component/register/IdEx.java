@@ -1,19 +1,20 @@
-package register;
+package component.register;
 
 import helper.instruction.Instruction;
 import lombok.Data;
-import unit.Control;
-import unit.InstructionDecoder;
-import unit.Unit;
+import component.unit.Control;
+import component.unit.InstructionDecoder;
+import component.unit.Unit;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import static helper.CodeLoader.ZERO_INSTRUCTION;
 import static helper.instruction.Instruction.ZERO_16;
 import static helper.instruction.Instruction.ZERO_3;
 
 @Data
-public class IdEx implements Register{
+public class IdEx implements Register {
     private Map<String, Unit> units;
     private Map<String, Register> registers;
     private Instruction instruction;
@@ -33,10 +34,10 @@ public class IdEx implements Register{
     private boolean registerWrite;
     private boolean sa;
 
-    public IdEx(){
+    public IdEx() {
         units = new HashMap<>();
         registers = new HashMap<>();
-        instruction = new Instruction(ZERO_16);
+        instruction = ZERO_INSTRUCTION;
         readData1 = ZERO_16;
         readData2 = ZERO_16;
         extendedImmediate = ZERO_16;
@@ -65,5 +66,37 @@ public class IdEx implements Register{
         memoryToRegister = ((Control) units.get("Control")).isMemoryToRegister();
         registerWrite = ((Control) units.get("Control")).isRegisterWrite();
         sa = ((InstructionDecoder) units.get("InstructionDecoder")).isSa();
+    }
+
+    @Override
+    public void initializeUnits(Map<String, Unit> units) {
+        this.units = units;
+    }
+
+    @Override
+    public void initializeRegisters(Map<String, Register> registers) {
+        this.registers = registers;
+    }
+
+    @Override
+    public String toString() {
+        return "IdEx{" +
+                "instruction=" + instruction +
+                ", readData1='" + readData1 + '\'' +
+                ", readData2='" + readData2 + '\'' +
+                ", extendedImmediate='" + extendedImmediate + '\'' +
+                ", func='" + func + '\'' +
+                ", rd='" + rd + '\'' +
+                ", rt='" + rt + '\'' +
+                ", pcIncrement='" + pcIncrement + '\'' +
+                ", aluOperation='" + aluOperation + '\'' +
+                ", registerDestination=" + registerDestination +
+                ", aluSource=" + aluSource +
+                ", branch=" + branch +
+                ", memoryWrite=" + memoryWrite +
+                ", memoryToRegister=" + memoryToRegister +
+                ", registerWrite=" + registerWrite +
+                ", sa=" + sa +
+                '}' + '\n';
     }
 }

@@ -1,11 +1,12 @@
-package unit;
+package component.unit;
 
 import helper.instruction.*;
 import lombok.Data;
-import register.*;
+import component.register.*;
 
 import java.util.*;
 
+import static helper.CodeLoader.ZERO_INSTRUCTION;
 import static helper.instruction.Instruction.ZERO_16;
 import static helper.instruction.Instruction.ZERO_3;
 
@@ -34,7 +35,7 @@ public class InstructionDecoder implements Unit {
         Arrays.fill(dataRegisters, ZERO_16);
         writeAddress = ZERO_3;
         writeData = ZERO_16;
-        instruction = new Instruction(ZERO_16);
+        instruction = ZERO_INSTRUCTION;
         readData1 = ZERO_16;
         readData2 = ZERO_16;
         extendedImmediate = ZERO_16;
@@ -45,6 +46,8 @@ public class InstructionDecoder implements Unit {
 
     @Override
     public void run() {
+        extendOperation = ((Control) units.get("Control")).isExtendedOperation();
+
         if (extendOperation) {
             extendedImmediate = Character.toString(instruction.getInstruction().charAt(9))
                     + instruction.getInstruction().charAt(9)
@@ -75,10 +78,11 @@ public class InstructionDecoder implements Unit {
     public void update() {
         instruction = ((IfId) registers.get("IfId")).getInstruction();
         instruction.setInstructionStage(InstructionStage.DECODE);
-        extendOperation = ((Control) units.get("Control")).isExtendedOperation();
         writeAddress = ((MemWb) registers.get("MemWb")).getRd();
         writeData = ((WriteBack) units.get("WriteBack")).getResult();
-        registerWrite = ((MemWb) registers.get("MemWb")).isRegisterWrite();
+        writeAddress = ((WriteBack) units.get("WriteBack")).getWriteAddress();
+        registerWrite = ((WriteBack) units.get("WriteBack")).isRegisterWrite();
+        ((WriteBack) units.get("WriteBack")).finishInstruction();
     }
 
     @Override
@@ -89,5 +93,18 @@ public class InstructionDecoder implements Unit {
     @Override
     public void initializeRegisters(Map<String, Register> registers) {
         this.registers = registers;
+    }
+
+    public void printRegisters() {
+        System.out.println("Registers:");
+        for (int i = 0; i < 8; i++) {
+            System.out.printf("%d: %s%n", i, dataRegisters[i]);
+        }
+        System.out.println();
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Instruction Decoder:%n readData1: %s%n readData2: %s%n extendedImmediate: %s%n func: %s%n sa: %s%n rd: %s%n rt: %s%n", readData1, readData2, extendedImmediate, func, sa, rd, rt);
     }
 }

@@ -1,7 +1,7 @@
-package unit;
+package component.unit;
 
 import lombok.Data;
-import register.*;
+import component.register.*;
 
 import java.util.*;
 
@@ -100,5 +100,10 @@ public class Control implements Unit {
     @Override
     public void initializeRegisters(Map<String, Register> registers) {
         this.registers = registers;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Control:%n registerDestination: %s %n extendedImmediate: %s %n aluSource: %s %n branch: %s %n jump: %s %n aluOperation: %s %n memoryWrite: %s %n memoryToRegister: %s %n registerWrite: %s%n", registerDestination, extendedOperation, aluSource, branch, jump, aluOperation, memoryWrite, memoryToRegister, registerWrite);
     }
 }

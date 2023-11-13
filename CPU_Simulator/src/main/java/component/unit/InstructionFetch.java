@@ -1,12 +1,13 @@
-package unit;
+package component.unit;
 
 import helper.CodeLoader;
 import helper.instruction.*;
 import lombok.Data;
-import register.*;
+import component.register.*;
 
 import java.util.*;
 
+import static helper.CodeLoader.ZERO_INSTRUCTION;
 import static helper.instruction.Instruction.ZERO_16;
 
 @Data
@@ -25,15 +26,18 @@ public class InstructionFetch implements Unit {
     public InstructionFetch() {
         units = new HashMap<>();
         instructions = new ArrayList<>();
-        instruction = new Instruction(ZERO_16);
+        instruction = ZERO_INSTRUCTION;
         pcIncrement = ZERO_16;
         branchAddress = ZERO_16;
         jumpAddress = ZERO_16;
-        counter = 0;
+        counter = -1;
     }
 
     @Override
     public void run() {
+        jumpAddress = ((IfId) registers.get("IfId")).getPcIncrement().substring(0, 2)
+                + ((IfId) registers.get("IfId")).getInstruction().getInstruction().substring(3);
+        jump = ((Control) units.get("Control")).isJump();
 
         switch (pcSource + "-" + jump) {
             case "true-true", "false-true":
@@ -45,11 +49,14 @@ public class InstructionFetch implements Unit {
 
                 break;
             case "false-false":
-                counter = Integer.parseInt(pcIncrement, 2);
+                counter = counter + 1;
 
                 break;
         }
-        instruction = instructions.get(counter);
+        if (instructions.size() > counter)
+            instruction = instructions.get(counter);
+        else
+            instruction = ZERO_INSTRUCTION;
 
         pcIncrement = String.format("%016d", Integer.valueOf(Integer.toBinaryString(counter + 1)));
     }
@@ -60,9 +67,6 @@ public class InstructionFetch implements Unit {
         boolean branch = ((ExMem) registers.get("ExMem")).isBranch();
         boolean zero = ((ExMem) registers.get("ExMem")).isZero();
         pcSource = branch && zero;
-        jumpAddress = ((IfId) registers.get("IfId")).getPcIncrement().substring(0, 2)
-                + ((IfId) registers.get("IfId")).getInstruction().getInstruction().substring(3);
-        jump = ((Control) units.get("Control")).isJump();
     }
 
     public void initializeUnits(Map<String, Unit> units) {
@@ -74,7 +78,14 @@ public class InstructionFetch implements Unit {
         this.registers = registers;
     }
 
-    public void loadCode(String filePath) {
+    public List<Instruction> loadCode(String filePath) {
         instructions = CodeLoader.loadCode(filePath);
+
+        return instructions;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Instruction Fetch:%n %s %n %s %n%n", this.getInstruction(), this.getPcIncrement());
     }
 }
